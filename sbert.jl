@@ -63,7 +63,8 @@ function sbert_main(; train, test, modelname, outname, kernel=Kernel.Linear, nt=
     scores = classification_scores(test.klass, ypred)
     outfile = joinpath(outname, "sbert-$modelnick")
 
-    save_scores(outfile, ypred, yval, scores, (; name="sbert", config=(; kernel)))
+    save_scores(outfile, ypred, yval, scores, (; name="sbert", config=(; kernel, modelname)))  
+    
     h5open(outfile * ".h5", "w") do f
         f["Xtrain"] = Xtrain
         f["ytrain"] = train.klass
